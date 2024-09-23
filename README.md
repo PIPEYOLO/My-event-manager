@@ -37,7 +37,3 @@ This project is oriented to the creation, manipulation and management of events 
     - npm run dev 
     - npm run css:watch ( tailwind CLI ) 
 
-```bash
-git clone https://github.com/tuusuario/tu-repo.git
-cd tu-repo
-npm install
