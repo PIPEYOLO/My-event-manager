@@ -75,12 +75,7 @@ export default function EventPresentation() {
         </div>
 
       </div>
-
-      <div>
-        Imagenes
-      </div>
       
-
 
       <div className="fixed right-10 bottom-10 min-w-[150px] flex justify-end flex-wrap gap-x-10 gap-y-5">
         {
