@@ -23,6 +23,7 @@ This project is oriented to the creation, manipulation and management of events 
 - Clone this repository
 - Create a Mongo db host (on your own) or a Mongo Atlas cluster
 - Create an "auth.json" file in the folder "backend\services\db\" with the following information: { connectionString: " mongodb conection string " }
+- Read the .env.local.example file and create your own .env.local file with your local info.
 - Run in the terminal:
   - For production: 
     - npm install
