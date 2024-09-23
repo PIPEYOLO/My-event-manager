@@ -20,7 +20,7 @@ This project is oriented to the creation, manipulation and management of events 
 
 
 
-## Instalación
+## Installation:
 
 ### Do wanna run this project on your own? Follow this steps:
 - Install node v20.12.2 or more recent versions and npm 10.5.0 or more recent
