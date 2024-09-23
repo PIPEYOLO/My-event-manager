@@ -1,11 +1,7 @@
 # My Event Manager
 This project is oriented to the creation, manipulation and management of events and invitations to them
 
-
-## Descripción
-
-
-### Características
+### Characteristics
 - Login and Registration system
 - Events Creation and edition
 - Invitation creation
