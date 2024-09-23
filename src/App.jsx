@@ -9,16 +9,17 @@ import MyEventsPage from './assets/pages/MyEvents';
 import EventPage from './assets/pages/Event';
 import InvitationPage from './assets/pages/Invitation';
 
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import EditEventPage from './assets/pages/EditEvent';
 import { useSelector } from 'react-redux';
 import LoginRequiredPage from './assets/pages/LoginRequired';
 
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
+
 function App() {
   return (
     <> 
-      <LocalizationProvider dateAdapter={ AdapterDayjs }>
+      <LocalizationProvider dateAdapter={ AdapterDateFns }>
         <Routes>
           <Route path="/get-started" element={<GetStartedPage />} />
 
