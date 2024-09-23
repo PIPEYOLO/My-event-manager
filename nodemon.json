@@ -1,0 +1,9 @@
+{
+  "verbose": true,
+  "ignore": [
+    "vite.config.js.timestamp-*.mjs",
+    "notes.txt",
+    "src",
+    "tailwind.config.js"
+  ]
+}
