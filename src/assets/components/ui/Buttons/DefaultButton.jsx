@@ -8,7 +8,7 @@ export default function DefaultButton ({ onClick, className, children, disabled 
       <button 
         onClick={onClick}
         className={"text-white " + (className ?? "")}
-        disabled={ disabled }
+        disabled={ disabled === true }
       >
         {children}
       </button>

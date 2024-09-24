@@ -36,6 +36,7 @@ const theme = createTheme({
           '&.Mui-focused': {
             color: tailwindConfig.theme.extend.colors[6],
           },
+          zIndex: 0
         },
       },
     },

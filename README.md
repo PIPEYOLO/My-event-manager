@@ -12,8 +12,6 @@ This project is oriented to the creation, manipulation and management of events 
 ## Future Characteristics:
 - User profile edition. (frontend and backend)
 - Home page extra functionalities (frontend)
-- Invitation deletion ( frontend )
-
 
 
 ## Installation:

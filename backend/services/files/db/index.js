@@ -126,7 +126,7 @@ export async function deleteFileFromDB(_id, { okIfNotFound=true }) {
     if(/file not found/i.test(err.message) === true && okIfNotFound === true) {} 
     else {
       manageUnhandledServerError(err);
-      return { success: false, error: UNEXPECTED_SERVER_ERROR.getWithCustomMessage("Could not delete document") };
+      return { success: false, error: UNEXPECTED_SERVER_ERROR.getWithCustomMessage("Could not delete file") };
     }
   };
 

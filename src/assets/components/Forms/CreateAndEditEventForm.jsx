@@ -6,9 +6,10 @@ import DefaultButton from "../ui/Buttons/DefaultButton";
 import dayjs from "dayjs";
 import MainDateTimePicker from "../ui/TimePickers/MainDateTimePicker";
 import InfoBar from "../ui/InfoBoxes/InfoBar";
-import { createEvent, editEvent } from "../../../../utils/fetch/event";
+import { createEvent, deleteEvent, editEvent } from "../../../../utils/fetch/event";
 import { useNavigate } from "react-router-dom";
 import MainLoadingSpinner from "../ui/Spinners/MainLoadingSpinner";
+import DefaultDialogSet from "../ui/Dialog/DefaultDialogSet";
 
 
 
@@ -109,7 +110,7 @@ export default function CreateAndEditEventForm({ isFor, eventData }) {
   }, [ isFor, eventState ])
 
   return (
-    <form className="h-full w-full flex flex-col gap-10 p-5 md:p-10" onSubmit={ ev => ev.preventDefault() }>
+    <form className="h-full w-full flex flex-col gap-10 pb-20 sm:pb-5 p-5 md:p-10 overflow-y-auto scrollbar-1" onSubmit={ ev => ev.preventDefault() }>
 
       <div className="flex flex-wrap justify-center gap-20">
         <div className="h-48 w-48 border-2 rounded-lg overflow-hidden shadow-md">
@@ -122,7 +123,7 @@ export default function CreateAndEditEventForm({ isFor, eventData }) {
 
         </div>
         
-        <div className="grow min-w-[400px] flex flex-col gap-4">
+        <div className="grow md:min-w-[400px] flex flex-col gap-4">
           <DefaultInputBox 
             labelText="Name"
             value={ name } 
@@ -152,18 +153,84 @@ export default function CreateAndEditEventForm({ isFor, eventData }) {
       </div>
 
       { error !== null ? <InfoBar message={ error.message } type="error" /> : undefined }
+
       { isUpdatingEvent ? (
           <div className="w-full flex justify-center">
             <div className="h-12 aspect-square"><MainLoadingSpinner /></div> 
           </div>
         ) : undefined 
       }
-      <DefaultButton 
-        className={ isEditable ? "bg-green-600" : "bg-gray-500" }
-        onClick={ sendFn }
-      >
-        { isFor === "creation" ? "Create" : "Update"}
-      </DefaultButton>
+      <div className="w-full flex justify-end gap-10">
+        <DefaultButton 
+          className={ "px-6 " + (isEditable ? "bg-green-600" : "bg-gray-500") }
+          onClick={ sendFn }
+        >
+          { isFor === "creation" ? "Create" : "Update"}
+        </DefaultButton>
+
+        {
+          isFor === "edition" ? <DeleteEventSet _id={ eventData._id } onSuccess={ () => navigate("/") } onError={ (err) => setError(err) } /> : undefined
+        }
+
+      </div>
+
     </form>
+  )
+}
+
+
+function DeleteEventSet({ _id, onError, onSuccess }) {
+  const [ confirmationOpen, setConfirmationOpen ] = useState(false);
+  const [ isDeleting, setIsDeleting ] = useState(false);
+
+  return (
+    <DefaultDialogSet
+      isOpen={ confirmationOpen }
+      setIsOpen={ setConfirmationOpen }
+      reference={(
+        <DefaultButton 
+          className="text-red-600 border-2 border-red-600 bg-transparent"
+          onClick={ useCallback( () =>  setConfirmationOpen(false), [ ]) }
+        >
+          Delete
+        </DefaultButton>
+      )}
+    >
+      <div className="flex flex-col gap-10 p-10 bg-1">
+        <h3>Are you sure you want to delete this event</h3>
+
+        { isDeleting ? <div className="h-10 aspect-square"> <MainLoadingSpinner /> </div> : undefined }
+
+        <div className="flex justify-center gap-10">
+          <DefaultButton
+            className="font-bold text-white bg-4"
+            onClick={ useCallback( async () => {
+              if(isDeleting) return;
+              
+              setIsDeleting(true);
+              const response = await deleteEvent(_id);
+              setIsDeleting(false);
+
+              const { success, data, error } = response.data;
+              if(success === false ) {
+                setConfirmationOpen(false); // close the modal
+                onError(error); // set an error
+                return;
+              }
+              onSuccess(data);
+            }, [ _id, isDeleting ])}
+          >
+            Delete
+          </DefaultButton>
+
+          <DefaultButton
+            className="font-bold text-white border-2 bg-transparent"
+            onClick={ useCallback(() => setConfirmationOpen(false), [ _id ])}
+          >
+            Cancel
+          </DefaultButton>
+        </div>
+      </div>
+    </DefaultDialogSet>
   )
 }

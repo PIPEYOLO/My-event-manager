@@ -111,6 +111,15 @@ eventRouter.patch("/:event_id/:action", eventActionRateLimiter, authorizationReq
 
 });
 
+eventRouter.delete("/:event_id", eventActionRateLimiter, authorizationRequired(), async (req, res) => {
+  const { event_id } = req.params;
+  const { _id: user_id } = getUserAuthInfo(req).data;
+
+  const result = await EventModel.deleteEvent(event_id, user_id);
+
+  return res.status(result.error?.status ?? 200).send(result);
+
+})
 
 
 

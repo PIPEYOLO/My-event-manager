@@ -9,6 +9,7 @@ import invitationRouter from "./routers/invitation/index.js";
 import filesRouter from "./routers/files/index.js";
 import { authorizationRequired } from "./middlewares/auth/index.js";
 import { clearAllCookies } from "../services/cookie/auth/index.js";
+import { ACTION_WAS_NOT_IMPLEMENTED } from "../services/errors/index.js";
 
 const app = e();
 
@@ -33,7 +34,7 @@ app.use("/api/user", userRouter);
 app.use("/api/event", eventRouter);
 app.use("/api/invitation", invitationRouter);
 app.use("/api/file", filesRouter);
-app.use("/api", (_, res) => res.status(501).send({ success: false, error: { message: "That route was not implemented " } }))
+app.use("/api", (_, res) => res.status(501).send({ success: false, error: ACTION_WAS_NOT_IMPLEMENTED.getWithCustomMessage("That route was not implemented")}))
 
 app.use(viteRouter);
 

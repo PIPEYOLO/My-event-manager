@@ -1,9 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userSlice from "../slices/user"
 import storeRootReducer from "..";
-import { getSpecificEvent } from "../../../../utils/fetch/event";
-import visibleEventSlice from "../slices/visibleEvent";
-
 
 
 

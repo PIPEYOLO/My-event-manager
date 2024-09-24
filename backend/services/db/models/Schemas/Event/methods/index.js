@@ -355,7 +355,45 @@ export const eventStaticMethods = {
 
     return { success: true, data: result };
   },
+  deleteEvent: async function (event_id, user_id) {
+    const _idsInfo = castFieldsToObjectId({ event_id, user_id });
+    if(_idsInfo.success === false) return _idsInfo;
 
+    event_id = _idsInfo.data.event_id;
+    user_id = _idsInfo.data.user_id;
+
+    // Getting the event
+    const eventInfo = await this.getSpecificEventForUser(event_id, user_id);
+    if(eventInfo.success === false) return eventInfo;
+
+    const event = eventInfo.data;
+
+    // checking that user_id is creator_id
+    if(event.creator_id.equals(user_id) === false) return { success: false, error: UNAUTHORIZED.getWithCustomMessage("You are not allowed to delete this event") };
+
+    // Delteting the event photo file if it exists
+    if(event.photo?.file_id != undefined) {
+      const fileDeletion = await deleteFileFromDB(event.photo.file_id, { okIfNotFound: true });
+      if(fileDeletion.success === false) return { success: false, error: UNEXPECTED_SERVER_ERROR.getWithCustomMessage("Could not delete event") };
+    }
+
+
+    // Deltetion of the event
+    let result;
+    try {
+      result = await this.deleteOne({ _id: event_id});
+    }
+    catch(err) {
+      manageUnhandledServerError(err);
+      return { success: false, error: UNEXPECTED_SERVER_ERROR.getWithCustomMessage("Could not delete event") };
+    };
+
+    if(result.deletedCount === 0) return { success: false, error: UNEXPECTED_SERVER_ERROR.getWithCustomMessage("Could not delete event") };
+
+
+    return { success: true };
+
+  },
 
   // Get Queries
   getSpecificEventForUser: async function (event_id, user_id) {

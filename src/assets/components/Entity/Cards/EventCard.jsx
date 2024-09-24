@@ -37,7 +37,7 @@ export default function EventCard({ _id }) {
         )
         : ( // If landscape we would put a circled photo
           <div className="h-12 md:h-24 aspect-square  flex-none rounded-full overflow-hidden">
-            <DynamicPhoto  entityType="event" />
+            <DynamicPhoto src={ photo?.path } entityType="event" />
           </div>
         ) 
       }

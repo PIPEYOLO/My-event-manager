@@ -4,7 +4,7 @@ import MainNavBar from "../Sections/MainNavBar";
 import { useMediaQuery } from 'react-responsive';
 
 export default function MainLayout({ children }) {
-  const mq = useMediaQuery({ query: "(min-width: 768px)"});
+  const mq = useMediaQuery({ query: "(min-width: 1280px)"});
   const [ openAside, setOpenAside ] = useState(false);
   const firstLoadRef = useRef(false);
 
@@ -24,15 +24,15 @@ export default function MainLayout({ children }) {
         <div className="flex h-full">
           {
             mq ? (
-              <div className="h-full border-r-2 z-[10000]">  
+              <div className="h-full border-r-2 z-[1000]">  
                 <AsideLeftSection />
               </div>
             )
             : (
               <div 
                 className={
-                  "absolute h-full border-r-2 -translate-x-full z-[10000] " + 
-                  ( openAside ? "-translate-x-0 " : "") +
+                  "absolute h-full border-r-2 -translate-x-full z-[2000] " + 
+                  ( openAside ? "translate-x-0 " : "") +
                   (firstLoadRef.current ? "transition-transform" : "") // we use this transition only after the first load occurs because when the fist load occurs the aside is initialy visible and the displaces out of the screen with the transition
                 }
               > 

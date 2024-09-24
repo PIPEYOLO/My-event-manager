@@ -36,9 +36,9 @@ export default function CreateInvitationModal({ event_id, setIsOpen }) {
   }, [ description, invitedUsers ]);
 
   return (
-    <div className="h-fit w-fit flex flex-col gap-4 p-5 rounded-lg border-2 bg-1">
+    <div className="relative flex flex-col gap-6 p-5 rounded-lg border-2 bg-1 z-[1000005]">
       <h2>Create Invitation</h2>
-      {/* <textarea className="h-48 w-64 border-2 outline-none bg-transparent resize-none"></textarea> */}
+
       <DefaultInputBox 
         value={ description }
         onChange={ useCallback((ev) => setDescription(ev.target.value), []) }
@@ -46,10 +46,10 @@ export default function CreateInvitationModal({ event_id, setIsOpen }) {
         labelText="Description"
       />
 
-      <div className="flex gap-10">
+      <div className="flex flex-wrap lg:flex-nowrap items-center justify-center gap-10">
         <div>
           <h4>Users to invite:</h4>
-          <div className="h-[300px] w-[400px] flex flex-col divide-y-2 border-2 rounded-lg scrollbar-1 overflow-y-scroll">
+          <div className="max-w-full h-[300px] w-[350px] flex flex-col divide-y-2 border-2 rounded-lg scrollbar-1 overflow-y-scroll">
             {
               invitedUsers.map(user => 
                 <DefaultUserItem 
@@ -121,7 +121,7 @@ function UsersToInviteSearchSet({ invitedUsers, add }) {
   return (
     <div className="flex flex-col gap-3">
       <SearchInputBox placeholder="Search a user to invite" value={ search } onChange={ useCallback((ev) => setSearch(ev.target.value), []) } />
-      <div className="h-[300px] w-[400px] flex flex-col divide-y-2 border-2 rounded-lg scrollbar-1 overflow-y-scroll">
+      <div className="max-w-full h-[300px] w-[350px]  flex flex-col divide-y-2 border-2 rounded-lg scrollbar-1 overflow-y-scroll">
         {
           usersFound.map(user => 
             <DefaultUserItem 

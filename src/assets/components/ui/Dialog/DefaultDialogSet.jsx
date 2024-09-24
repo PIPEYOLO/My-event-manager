@@ -31,10 +31,11 @@ export default function DefaultDialogSet({ reference, children, isOpen, setIsOpe
         <FloatingOverlay
           lockScroll
           style={ { background: 'rgba(0, 0, 0, 0.8)'} }
+          className="max-h-full max-w-full fixed z-[100000]"
         >
-          <FloatingFocusManager context={ context }>
+          <FloatingFocusManager context={ context } >
             <div
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-fit w-fit"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-h-full max-w-full h-fit w-fit z-[100001]"
               ref={ refs.setFloating }
               { ...getFloatingProps() }
             >

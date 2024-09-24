@@ -73,7 +73,7 @@ export const ACTION_WAS_NOT_IMPLEMENTED = new StandardError({ status: 501, code:
 
 // Other
 export const UNVALID_PAYLOAD_DATA = new StandardError({ status: 400, code: "UNVALID_PAYLOAD_DATA", message: "" });
-export const TOO_MANY_REQUESTS = new StandardError({ status: 400, code: "TOO_MANY_REQUESTS", message: "You are requesting this resource too many times." });
+export const TOO_MANY_REQUESTS = new StandardError({ status: 429, code: "TOO_MANY_REQUESTS", message: "You are requesting this resource too many times." });
 
 
 StandardError.blockClass();

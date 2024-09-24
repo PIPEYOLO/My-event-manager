@@ -18,6 +18,9 @@ export function editEvent(eventData) {
   return fetchServer(`/event/${eventData._id}`, "PATCH", { data: formData, headers: { "Content-Type": "multipart/form-data" } });
 }
 
+export function deleteEvent(_id) {
+  return fetchServer(`/event/${_id}`, "DELETE");
+}
 
 export function getEvents({ type, skip, limit=10, subscribed, closest, search, created }) {
   return fetchServer(`/event?type=${type}&skip=${skip}&limit=${limit}&subscribed=${subscribed}&closest=${closest}&search=${search}&created=${created}`);
